@@ -1,0 +1,10 @@
+
+{% for item in object_list %} 
+<!-- listというオブジェクトを一つずつ取り出して表示する -->
+
+<ul>
+  <li>{{ item.title }}  </li>
+  <li>{{ item.memo }}  </li>
+</ul>
+
+{% endfor %}

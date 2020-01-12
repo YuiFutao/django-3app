@@ -3,6 +3,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # 空欄にしておくと、ワイルドカードの扱いになる
+    # 空欄= 未記入（localhost:8000 とした時のを拾う）
     path('', include('todo.urls'))
 ]
