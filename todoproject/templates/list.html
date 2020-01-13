@@ -1,10 +1,37 @@
+{% extends 'base.html' %}
 
-{% for item in object_list %} 
-<!-- listというオブジェクトを一つずつ取り出して表示する -->
+{% block header %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">TodoList
+    </h1>
+    <p class="lead">this is TODOリストです</p>
+  </div>
+</div>
+{% endblock header %}
 
-<ul>
-  <li>{{ item.title }}  </li>
-  <li>{{ item.memo }}  </li>
-</ul>
 
-{% endfor %}
+{% block content %}
+<div class='container'>
+
+  {% for item in object_list %}
+  <div class="alert alert-secondary" role="alert">
+    <p>{{ item.title }}</p>
+    <p>
+      <button type="button" class="btn btn-success">編集</button>
+      <button type="button" class="btn btn-danger ">削除</button>
+      <button type="button" class="btn btn-dark ">詳細</button>
+    </p>
+
+    <a href="#" class="btn btn-success " tabindex="-1" role="button" aria-disabled="true">編集</a>
+    <a href="#" class="btn btn-danger " tabindex="-1" role="button" aria-disabled="true">削除</a>
+    <a href="#" class="btn btn-dark " tabindex="-1" role="button" aria-disabled="true">詳細</a>
+  </div>
+
+  {% endfor %}
+
+</div>
+
+
+
+{% endblock content %}
