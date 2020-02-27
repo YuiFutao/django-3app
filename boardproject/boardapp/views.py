@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
-
+from .models import BoadModel
+from django.contrib.auth.decorators import login_required
 
 
 def signupfunc(request):
@@ -31,12 +32,43 @@ def loginfunc(request):
     user = authenticate(request, username=username2, password=password2)
     if user is not None:
       login(request, user)
-      return redirect('signup')
+      return redirect('list')
 
     else:
       return redirect('login')
   return render(request, 'login.html')
 
 
+@login_required
 def listfunc(request):
-  return render(request, 'list.html')
+  object_list = BoadModel.objects.all()
+  return render(request, 'list.html', {'object_list':object_list})
+
+
+def logoutfunc(request):
+    logout(request)
+    # Redirect to a success page.
+    return redirect('login')
+
+def detailfunc(request, pk):
+  object = BoadModel.objects.get(pk=pk)
+  return render(request, 'detail.html', {'object':object})
+
+def goodfunc(request, pk):
+  post = BoadModel.objects.get(pk=pk)
+  post.good += 1
+  post.save()
+  return redirect('list')
+
+def readfunc(request, pk):
+  post = BoadModel.objects.get(pk=pk)
+  post.readtext
+  loginuser = request.user.get_username()
+  if loginuser in post.readtext:
+    return redirect('list')
+  else:
+    post.read +=1
+    post.readtext = post.readtext + ' ' + loginuser
+    post.save()
+    return redirect('list')
+
