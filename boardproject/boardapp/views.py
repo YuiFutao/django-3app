@@ -42,9 +42,8 @@ def loginfunc(request):
 
 @login_required
 def listfunc(request):
-  object_list = BoadModel.objects.all()
+  object_list = BoardModel.objects.all()
   return render(request, 'list.html', {'object_list':object_list})
-
 
 def logoutfunc(request):
     logout(request)
@@ -52,17 +51,17 @@ def logoutfunc(request):
     return redirect('login')
 
 def detailfunc(request, pk):
-  object = BoadModel.objects.get(pk=pk)
+  object = BoardModel.objects.get(pk=pk)
   return render(request, 'detail.html', {'object':object})
 
 def goodfunc(request, pk):
-  post = BoadModel.objects.get(pk=pk)
+  post = BoardModel.objects.get(pk=pk)
   post.good += 1
   post.save()
   return redirect('list')
 
 def readfunc(request, pk):
-  post = BoadModel.objects.get(pk=pk)
+  post = BoardModel.objects.get(pk=pk)
   post.readtext
   loginuser = request.user.get_username()
   if loginuser in post.readtext:
@@ -73,8 +72,8 @@ def readfunc(request, pk):
     post.save()
     return redirect('list')
 
-def BoardCreate(CreateView):
+class BoardCreate(CreateView):
   template_name = 'create.html'
-  model = BoadModel
-  fields = ('title', 'content', 'auther', 'images')
+  model = BoardModel
+  fields = ('title', 'content', 'author', 'images')
   success_url = reverse_lazy('list')
