@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import BoadModel
+from .models import BoardModel
 
 # Register your models here.
 
-admin.site.register(BoadModel)
+admin.site.register(BoardModel)

@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
-from .models import BoadModel
+from .models import BoardModel
 from django.contrib.auth.decorators import login_required
-
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
 
 def signupfunc(request):
   if 'POST' == request.method:
@@ -72,3 +73,8 @@ def readfunc(request, pk):
     post.save()
     return redirect('list')
 
+def BoardCreate(CreateView):
+  template_name = 'create.html'
+  model = BoadModel
+  fields = ('title', 'content', 'auther', 'images')
+  success_url = reverse_lazy('list')
